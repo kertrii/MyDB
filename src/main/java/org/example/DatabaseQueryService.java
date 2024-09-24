@@ -3,10 +3,7 @@ package org.example;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +20,9 @@ public class DatabaseQueryService {
         try {
             String sql = readSQLFromFile(sqlFilePath);
 
-            try(Connection connection = Database.getConnection();
-                Statement statement = connection.createStatement();
-                ResultSet resultSet = statement.executeQuery(sql)) {
+            try (Connection connection = Database.getConnection();
+                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                 ResultSet resultSet = preparedStatement.executeQuery(sql)) {
 
                 while (resultSet.next()) {
                     String name = resultSet.getString("NAME");
@@ -49,8 +46,8 @@ public class DatabaseQueryService {
             String sql = readSQLFromFile(sqlFilePath);
 
             try (Connection connection = Database.getConnection();
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql)) {
+                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                 ResultSet resultSet = preparedStatement.executeQuery(sql)) {
 
                 while (resultSet.next()) {
                     String projectName = resultSet.getString("PROJECT_NAME");
@@ -72,9 +69,9 @@ public class DatabaseQueryService {
         try {
             String sql = readSQLFromFile(sqlFilePath);
 
-            try(Connection connection = Database.getConnection();
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql)) {
+            try (Connection connection = Database.getConnection();
+                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                 ResultSet resultSet = preparedStatement.executeQuery(sql)) {
 
                 while (resultSet.next()) {
                     String name = resultSet.getString("NAME");
@@ -96,9 +93,9 @@ public class DatabaseQueryService {
         try {
             String sql = readSQLFromFile(sqlFilePath);
 
-            try(Connection connection = Database.getConnection();
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql)) {
+            try (Connection connection = Database.getConnection();
+                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                 ResultSet resultSet = preparedStatement.executeQuery(sql)) {
 
                 while (resultSet.next()) {
                     String type = resultSet.getString("TYPE");
